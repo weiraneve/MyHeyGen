@@ -2,9 +2,9 @@ from TTS.api import TTS
 from core.temp_manager import TempFileManager
 
 class VoiceCloner:
-    def __init__(self, lang_code):
+    def __init__(self, config,lang_code):
         # self.api = TTS(f'tts_models/{lang_code}/fairseq/vits')
-        self.api = TTS(f'tts_models/multilingual/multi-dataset/xtts_v1.1')
+        self.api = TTS(config["TTS_MODEL"], gpu=True)
         self.lang_code = lang_code
     
     def process(self, speaker_wav_filename, text, out_filename=None):

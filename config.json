@@ -6,5 +6,6 @@
     "TS_APPID": "",
     "TS_APPKEY": "",
     "HUMAN_TRANS": 0,
-    "SPEAKER_NUM": 1
+    "SPEAKER_NUM": 1,
+    "TTS_MODEL":"tts_models/multilingual/multi-dataset/xtts_v2"
 }

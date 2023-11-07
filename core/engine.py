@@ -34,7 +34,7 @@ class Engine:
            # raise Exception('No HuggingFace token providen!')
         self.output_language = output_language
         print("output_language:{}".format(output_language))
-        self.cloner = VoiceCloner(output_language)
+        self.cloner = VoiceCloner(config,output_language)
         device_type = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.device = torch.device(device_type)
         self.whisper_batch_size = 16
