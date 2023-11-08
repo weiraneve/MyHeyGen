@@ -34,7 +34,7 @@ class Engine:
            # raise Exception('No HuggingFace token providen!')
         self.output_language = output_language
         print("output_language:{}".format(output_language))
-        self.cloner = VoiceCloner(config,output_language)
+        self.config = config
         device_type = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.device = torch.device(device_type)
         self.whisper_batch_size = 16
@@ -105,6 +105,8 @@ class Engine:
         updates = []
         zimu_path = Path(output_file_path).parent.joinpath('zimu.txt')
         print(zimu_path)
+        self.empty_cache()
+        cloner = VoiceCloner(self.config,self.output_language)
         for speaker in speakers:
             if 'id' in speaker:
                 voice = merged_voices[speaker['id']]
@@ -113,6 +115,9 @@ class Engine:
             
             voice_wav = self.temp_manager.create_temp_file(suffix='.wav').name
             voice.export(voice_wav, format='wav')
+            
+            voice_audio_wav = self.temp_manager.create_temp_file(suffix='.wav').name
+            voice_audio.export(voice_audio_wav, format='wav')
 
             dst_text = self.text_helper.translate(speaker['text'], src_lang=lang, dst_lang=self.output_language)
             
@@ -121,8 +126,8 @@ class Engine:
                 f.write("\n" + dst_text)
                 f.write("\n")
                 
-            cloned_wav = self.cloner.process(
-                speaker_wav_filename=voice_wav,
+            cloned_wav = cloner.process(
+                speaker_wav_filename=[voice_wav,voice_audio_wav],
                 text=dst_text
             )
 
@@ -139,7 +144,8 @@ class Engine:
                 'voice': output_wav
             })
         # ---------------------------------------------------------------------------------------------------
-
+        cloner = None
+        torch.cuda.empty_cache()
         # [Step 5] Creating final speech audio --------------------------------------------------------------
         print("[Step 5] Creating final speech audio")
         original_audio_duration = voice_audio.duration_seconds * 1000
@@ -203,7 +209,6 @@ class Engine:
         
     
     def empty_cache(self):
-        self.cloner = None
         self.whisper = None
         self.diarize_model = None
         self.dereverb = None

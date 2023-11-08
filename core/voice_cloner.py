@@ -4,8 +4,9 @@ from core.temp_manager import TempFileManager
 class VoiceCloner:
     def __init__(self, config,lang_code):
         # self.api = TTS(f'tts_models/{lang_code}/fairseq/vits')
-        self.api = TTS(config["TTS_MODEL"], gpu=True)
+        self.api = TTS(config["TTS_MODEL"],gpu=True)
         self.lang_code = lang_code
+        print("TTS model {} Loaded,you may need CTRL+C to continue".format(config["TTS_MODEL"]))
     
     def process(self, speaker_wav_filename, text, out_filename=None):
         temp_manager = TempFileManager()

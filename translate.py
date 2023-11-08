@@ -12,7 +12,7 @@ def translate(video_filename, output_language, output_filename):
     engine(video_filename, output_filename)
 
 if __name__ == '__main__':
-    langs = ['en', 'es', 'fr', 'de', 'it', 'pt', 'pl', 'tr', 'ru', 'nl', 'cs', 'ar', 'zh-cn', 'ja']
+    langs = ['en', 'es', 'fr', 'de', 'it', 'pt', 'pl', 'tr', 'ru', 'nl', 'cs', 'ar', 'zh-cn', 'ja','hu','ko']
     parser = argparse.ArgumentParser(description='Combine an audio file and a video file into a new video file')
     parser.add_argument('video_filename', help='path to video file')
     parser.add_argument('output_language', choices=list(langs), default='rus', help='choose one option')
