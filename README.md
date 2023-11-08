@@ -36,6 +36,9 @@ python translate.py 原视频文件路径 想要翻译成的语言代码 -o 翻�
 - 2023.11.8 update TTS for more reality
 
 ## 交流群及打赏码
-
-![交流群](./img/chat.jpg)
-![赏卤蛋](./img/ludan.jpg)
+<div>
+  <figure>
+  <img alt='交流群' src="./img/chat.jpg?raw=true" width="300px"/>
+  <img alt='赏卤蛋' src="./img/ludan.jpg?raw=true" width="300px"/>
+  <figure>
+</div>
