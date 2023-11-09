@@ -321,12 +321,19 @@ def datagen(frames, mels, full_frames, frames_pil, cox):
 
     for i, m in enumerate(mels):
         idx = 0 if args.static else i % len(frames)
-        frame_to_save = frames[idx].copy()
-        face = refs[idx]
-        oface, coords = face_det_results[idx].copy()
-
-        face = cv2.resize(face, (args.img_size, args.img_size))
-        oface = cv2.resize(oface, (args.img_size, args.img_size))
+        while 1:
+            try:
+                idx = 0 if args.static else idx % len(frames)
+                frame_to_save = frames[idx].copy()
+                face = refs[idx]
+                oface, coords = face_det_results[idx].copy()
+                face = cv2.resize(face, (args.img_size, args.img_size))
+                oface = cv2.resize(oface, (args.img_size, args.img_size))
+            except:
+                idx += 1
+                continue
+            break
+    
 
         img_batch.append(oface)
         ref_batch.append(face) 

@@ -39,16 +39,18 @@ class Engine:
         self.device = torch.device(device_type)
         self.whisper_batch_size = 16
         self.whisper = load_model('large-v2', device=device_type, compute_type='int8')
-        self.diarize_model = DiarizationPipeline(use_auth_token=config['HF_TOKEN'], device=self.device)
+        self.diarize_model = DiarizationPipeline(use_auth_token=config['HF_TOKEN'])
         self.text_helper = TextHelper(config)
         self.temp_manager = TempFileManager()
         self.speaker_num = config["SPEAKER_NUM"]
+        
         if self.speaker_num > 1: 
             self.scene_processor = ScenePreprocessor(config)
+            self.lip_sync = LipSync()
             print("You can change SPEAKER_NUM as 1 in config.json to disable scene_processor")
         else:
             print("default speaker num is 1, you can change SPEAKER_NUM in config.json to enable scene_processor")
-        # self.lip_sync = LipSync()
+        
         self.dereverb = MDXNetDereverb(15)
     
     def __call__(self, video_file_path, output_file_path):
@@ -163,49 +165,47 @@ class Engine:
         speech_audio_wav = self.temp_manager.create_temp_file(suffix='.wav').name
         speech_audio.export(speech_audio_wav, format='wav')
         # ---------------------------------------------------------------------------------------------------
-        # [Step 6] Using video-retalking merge speech voice and video, creating output ------------------------------------------
-        print("[Step 6] Using video-retalking merge speech voice and video, creating output")
-        self.empty_cache()
-        noise_audio_wav = self.temp_manager.create_temp_file(suffix='.wav').name
-        noise_audio.export(noise_audio_wav, format='wav')
+        if self.speaker_num > 1: 
+            # [Step 6] LipSync + merging frames -----------------------------------------------------------------
+            print("[Step 6] LipSync + merging frames ")
+            frames = dict()
 
-        combined_audio = combine_audio(speech_audio_wav, noise_audio_wav)
-        
-        command = 'cd ./video-retalking && rm -rf ./temp/* && python inference.py \
-        --face {} --audio {} --outfile {} --LNet_batch_size {}'.format(
-            video_file_path, combined_audio, output_file_path, 2
-        )
-        subprocess.call(command, shell=True)
-        
-        '''
-        # [Step 6] LipSync + merging frames -----------------------------------------------------------------
-        print("[Step 6] LipSync + merging frames ")
-        frames = dict()
+            all_frames = self.scene_processor.get_frames()
+            for frame_id, frame in all_frames.items():
+                if not frame_id in frames:
+                    frames[frame_id] = {
+                        'frame': np.array(frame)
+                    }
 
-        all_frames = self.scene_processor.get_frames()
-        for frame_id, frame in all_frames.items():
-            if not frame_id in frames:
-                frames[frame_id] = {
-                    'frame': np.array(frame)
-                }
-        
-        frames = to_extended_frames(frames, speakers, orig_clip.fps, self.scene_processor.get_face_on_frame)
-        self.scene_processor.close()
-        frames = self.lip_sync.sync(frames, speech_audio_wav, orig_clip.fps)
+            frames = to_extended_frames(frames, speakers, orig_clip.fps, self.scene_processor.get_face_on_frame)
+            self.scene_processor.close()
+            frames = self.lip_sync.sync(frames, speech_audio_wav, orig_clip.fps)
+            # ---------------------------------------------------------------------------------------------------
+
+            # [Step 7] Merging speech voice and noise, creating output ------------------------------------------
+            print("[Step 7] Merging speech voice and noise, creating output")
+            temp_result_avi = to_avi(frames, orig_clip.fps)
+
+            noise_audio_wav = self.temp_manager.create_temp_file(suffix='.wav').name
+            noise_audio.export(noise_audio_wav, format='wav')
+
+            combined_audio = combine_audio(speech_audio_wav, noise_audio_wav)
+
+            merge(combined_audio, temp_result_avi, output_file_path)
         # ---------------------------------------------------------------------------------------------------
+        else:
+            # [Step 6] Using video-retalking merge speech voice and video, creating output ------------------------------------------
+            print("Video-retalking merge speech voice and video, creating output!!!")
+            noise_audio_wav = self.temp_manager.create_temp_file(suffix='.wav').name
+            noise_audio.export(noise_audio_wav, format='wav')
 
-        # [Step 7] Merging speech voice and noise, creating output ------------------------------------------
-        print("[Step 7] Merging speech voice and noise, creating output")
-        temp_result_avi = to_avi(frames, orig_clip.fps)
+            combined_audio = combine_audio(speech_audio_wav, noise_audio_wav)
 
-        noise_audio_wav = self.temp_manager.create_temp_file(suffix='.wav').name
-        noise_audio.export(noise_audio_wav, format='wav')
-
-        combined_audio = combine_audio(speech_audio_wav, noise_audio_wav)
-
-        merge(combined_audio, temp_result_avi, output_file_path)
-        # ---------------------------------------------------------------------------------------------------
-        '''
+            command = 'cd ./video-retalking && rm -rf ./temp/* && python inference.py \
+            --face {} --audio {} --outfile {} --LNet_batch_size {}'.format(
+                video_file_path, combined_audio, output_file_path, 2
+            )
+            subprocess.call(command, shell=True)
         
     
     def empty_cache(self):
@@ -214,6 +214,7 @@ class Engine:
         self.dereverb = None
         torch.cuda.empty_cache()
         print("cuda memeroy:{}".format(torch.cuda.memory_reserved()))
+        print("You may need CTRL+C here!")
         
     def transcribe_audio_extended(self, audio_file):
         audio = load_audio(audio_file)
@@ -221,6 +222,7 @@ class Engine:
         language = result['language']
         model_a, metadata = load_align_model(language_code=language, device=self.device)
         result = align(result['segments'], model_a, metadata, audio, self.device, return_char_alignments=False)
+        print("diarizing ... wait moment")
         diarize_segments = self.diarize_model(audio)
         result = assign_word_speakers(diarize_segments, result)
         return result['segments'], language
