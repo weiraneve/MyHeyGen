@@ -6,14 +6,20 @@
 - [【AI小美的英语，汉语，法语，俄语本当上手】](https://www.bilibili.com/video/BV1YQ4y1n7Ym/?share_source=copy_web&vd_source=453c36b4abef37acd389d4c01b149023)
 - [【heygen或elevenlabs会员太贵了，原来可以白嫖方案的！】](https://www.bilibili.com/video/BV17c411d7LK/?share_source=copy_web&vd_source=453c36b4abef37acd389d4c01b149023)
 - [【张三老师英文普法！英文区的网友有福啦】](https://www.bilibili.com/video/BV1XN41137Bv/?share_source=copy_web&vd_source=453c36b4abef37acd389d4c01b149023)
+- [【MyHeyGen测试|这英的英语倍儿地道！】](https://www.bilibili.com/video/BV1vN4y1D7mo/?share_source=copy_web&vd_source=453c36b4abef37acd389d4c01b149023)
 ## 视频教程
 [【MyHeyGen来了！！！】]( https://www.bilibili.com/video/BV14C4y1J7dY/?share_source=copy_web&vd_source=453c36b4abef37acd389d4c01b149023)
+
+## 微氪方案
+[【MyHeyGen教程|这样配置应该简单很多吧】](https://www.bilibili.com/video/BV1cN4y1D73X/?share_source=copy_web&vd_source=453c36b4abef37acd389d4c01b149023)
+相当于一键包，不需要配环境，但是得微氪金
 
 ## 环境准备
 1. 在[huggingface申请token](https://huggingface.co/),放在config.json的HF_TOKEN参数下
 2. 在[百度翻译申请APPKey](https://fanyi-api.baidu.com/?fr=pcHeader)用于翻译字幕放在config.json的TS_APPID和TS_APPKEY参数下
 3. 下载[weights](https://drive.google.com/file/d/1dYy24q_67TmVuv_PbChe2t1zpNYJci1J/view?usp=sharing)放在MyHeyGen目录下，下载[checkpoints](https://drive.google.com/drive/folders/18rhjMpxK8LVVxf7PI6XwOidt8Vouv_H0?usp=share_link)放在video-retalking目录下,从weights复制GFPGANv1.4.pth到checkpoints
 4. 仅在Linux python 3.10 Tesla T4(16GB) 环境下测试通过
+
 
 ## 安装
 ```
