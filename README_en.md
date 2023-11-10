@@ -1,6 +1,6 @@
 # MyHeyGen | [中文](./README.md)
 A civilian version video translation tool that provides a full process solution for voice cloning, translation correction, and lip synthesis
-## Tanks
+## Thanks
 [HeyGenClone](https://github.com/BrasD99/HeyGenClone.git)、[TTS](https://github.com/coqui-ai/tts)、[Video-retalking](https://github.com/OpenTalker/video-retalking)
 ## Gallery
 - [【AI小美的英语，汉语，法语，俄语本当上手】](https://www.bilibili.com/video/BV1YQ4y1n7Ym/?share_source=copy_web&vd_source=453c36b4abef37acd389d4c01b149023)
