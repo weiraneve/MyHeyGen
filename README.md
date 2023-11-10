@@ -21,6 +21,10 @@ git clone https://github.com/AIFSH/MyHeyGen.git
 cd MyHeyGen
 bash install.sh
 ```
+或者拉取docker镜像
+```
+docker pull registry.cn-beijing.aliyuncs.com/codewithgpu2/aifsh-myheygen:o3U7yjrWg5
+```
 ## 测试
 ```
 python translate.py /root/MyHeyGen/test/src.mp4 'zh-cn' -o /root/MyHeyGen/test/out_zh.mp4
