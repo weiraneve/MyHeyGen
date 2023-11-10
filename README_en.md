@@ -19,6 +19,13 @@ Equivalent to a one click package, no environment required, but with small funds
 2. Apply for [fanyi](https://fanyi-api.baidu.com/?fr=pcHeader)APPID and APPKey in config.json `TS_APPID` and `TS_APPKEY`
 3. Download [weights](https://drive.google.com/file/d/1dYy24q_67TmVuv_PbChe2t1zpNYJci1J/view?usp=sharing) and unzip it in `MyHeyGen`，download [checkpoints](https://drive.google.com/drive/folders/18rhjMpxK8LVVxf7PI6XwOidt8Vouv_H0?usp=share_link) then put it in MyHeyGen/video-retalking,remenber copy GFPGANv1.4.pth from weights to checkpoints!
 
+<div>
+  <figure>
+  <img alt='weights path' src="./img/weights.png?raw=true" width="300px"/>
+  <img alt='checkpoints path' src="./img/checkpoints.png?raw=true" width="300px"/>
+  <figure>
+</div>
+
 
 ## Install
 ```
@@ -40,10 +47,11 @@ python translate.py src_video_path lang_code -o out_video_opath
 ## lang_code in ['en', 'es', 'fr', 'de', 'it', 'pt', 'pl', 'tr', 'ru', 'nl', 'cs', 'ar', 'zh-cn', 'ja','hu','ko']
 ## Corresponding to [English, Spanish, French, German, Italian, Portuguese, Polish, Turkish, Russian, Dutch, Czech, Arabic, Chinese (Simplified), Japanese, Hungarian, Korean]
 ```
-## update log
+## Update log
 - 2023.11.7  add TTS_MODEL in config.json to custom model
 - 2023.11.8 update TTS for more reality
 - 2023.11.9 fix video-retalking oface error
+- 2023.11.10 fix librosa version conflict with latest TTS
 
 ## WeChat Group and Sponsor 
 <div>
