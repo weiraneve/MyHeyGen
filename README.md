@@ -17,7 +17,7 @@
 ## 环境准备
 1. 在[huggingface申请token](https://huggingface.co/),放在config.json的HF_TOKEN参数下
 2. 在[百度翻译申请APPKey](https://fanyi-api.baidu.com/?fr=pcHeader)用于翻译字幕放在config.json的TS_APPID和TS_APPKEY参数下
-3. 下载[weights](https://drive.google.com/file/d/1dYy24q_67TmVuv_PbChe2t1zpNYJci1J/view?usp=sharing)放在MyHeyGen目录下，下载[checkpoints](https://drive.google.com/drive/folders/18rhjMpxK8LVVxf7PI6XwOidt8Vouv_H0?usp=share_link)放在video-retalking目录下,从weights复制GFPGANv1.4.pth到checkpoints，如下图
+3. 下载`weights` [drive](https://drive.google.com/file/d/1dYy24q_67TmVuv_PbChe2t1zpNYJci1J/view?usp=sharing) [夸克](https://pan.quark.cn/s/284713c6e873)放在MyHeyGen目录下，下载`checkpoints` [drive](https://drive.google.com/drive/folders/18rhjMpxK8LVVxf7PI6XwOidt8Vouv_H0?usp=share_link) [夸克](https://pan.quark.cn/s/7f7d82d57a1f)放在video-retalking目录下,从weights复制GFPGANv1.4.pth到checkpoints，如下图
 
 <div>
   <figure>
