@@ -44,6 +44,11 @@ class TextHelper:
             dst_lang = "fra"
         if  "fr" in src_lang:
             src_lang = "fra"
+        
+        if "ko" in dst_lang:
+            dst_lang = "kor"
+        if  "ko" in src_lang:
+            src_lang = "kor"
             
         print(text, ' ', src_lang, ' ', dst_lang)
         endpoint = 'http://api.fanyi.baidu.com'
@@ -64,7 +69,7 @@ class TextHelper:
             dst_text = result['trans_result'][0]['dst']
             print(json.dumps(result, indent=4, ensure_ascii=False))
         except Exception as e:
-            dst_text = input("query的发送频率过高，人工输入翻译结果：\n")
+            dst_text = input("error, manual input of translation result:\n")
             return dst_text.strip()
 
         # Show response

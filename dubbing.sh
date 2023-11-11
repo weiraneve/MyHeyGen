@@ -1,5 +1,5 @@
 ## 拿到镜像先测试一下如下代码
-
+pip install TTS -U
 python translate.py /root/MyHeyGen/test/src.mp4 'zh-cn' -o /root/MyHeyGen/test/out_zh.mp4
 
 ## python translate.py 原视频文件路径 想要翻译成的语言代码 -o 翻译好的视频路径

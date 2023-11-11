@@ -106,7 +106,9 @@ class Engine:
 
         updates = []
         zimu_path = Path(output_file_path).parent.joinpath('zimu.txt')
-        print(zimu_path)
+        bgm_path = Path(output_file_path).parent.joinpath('bgm.wav')
+        noise_audio.export(bgm_path,format='wav')
+        
         self.empty_cache()
         cloner = VoiceCloner(self.config,self.output_language)
         for speaker in speakers:
