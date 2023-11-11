@@ -3,8 +3,7 @@
 ## 参考项目（感谢他们的优秀作品）
 [HeyGenClone](https://github.com/BrasD99/HeyGenClone.git)、[TTS](https://github.com/coqui-ai/tts)、[Video-retalking](https://github.com/OpenTalker/video-retalking)
 ## 实现效果
-- [【AI小美的英语，汉语，法语，俄语本当上手】](https://www.bilibili.com/video/BV1YQ4y1n7Ym/?share_source=copy_web&vd_source=453c36b4abef37acd389d4c01b149023)
-- [【heygen或elevenlabs会员太贵了，原来可以白嫖方案的！】](https://www.bilibili.com/video/BV17c411d7LK/?share_source=copy_web&vd_source=453c36b4abef37acd389d4c01b149023)
+- [【好家伙一下子学了英语、日语、法语、俄语、韩语5国外语，肾好，肾好！ | MyHeyGen效果演示】](https://www.bilibili.com/video/BV1wC4y1E78h/?share_source=copy_web&vd_source=453c36b4abef37acd389d4c01b149023)
 - [【张三老师英文普法！英文区的网友有福啦】](https://www.bilibili.com/video/BV1XN41137Bv/?share_source=copy_web&vd_source=453c36b4abef37acd389d4c01b149023)
 - [【MyHeyGen测试|这英的英语倍儿地道！】](https://www.bilibili.com/video/BV1vN4y1D7mo/?share_source=copy_web&vd_source=453c36b4abef37acd389d4c01b149023)
 ## 视频教程
