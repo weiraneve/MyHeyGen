@@ -28,5 +28,5 @@ pip install ninja==1.10.2.3
 pip install dlib --verbose
 # pip install librosa==0.9.2
 
-sudo apt update
-sudo apt install ffmpeg
+apt update
+apt install ffmpeg
