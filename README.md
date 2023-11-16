@@ -65,13 +65,6 @@ python translate.py 原视频文件路径 想要翻译成的语言代码 -o 翻�
 ##分别对应[英语、西班牙语、法语、德语、意大利语、葡萄牙语、波兰语、土耳其语、俄语、荷兰语、捷克语、阿拉伯语、中文（简体）、日语、匈牙利语、韩语]16种语言
 ```
 
-## Update log
-
-- 2023.11.7 add TTS_MODEL in config.json to custom model
-- 2023.11.8 update TTS for more reality
-- 2023.11.9 fix video-retalking oface error
-- 2023.11.10 fix librosa version conflict with latest TTS
-
 ## 适配 MacOS Arm
 
 Macos M1pro 的版本上，修改以下这些关键依赖可以正常运行。
@@ -91,6 +84,14 @@ self.api = TTS(config["TTS_MODEL"], gpu=True)
 ```
 
 `gpu=True` 修改为 `gpu=False`
+
+## Update log
+
+- 2023.11.16 update for macos arm
+- 2023.11.7 add TTS_MODEL in config.json to custom model
+- 2023.11.8 update TTS for more reality
+- 2023.11.9 fix video-retalking oface error
+- 2023.11.10 fix librosa version conflict with latest TTS
 
 ## 交流群及打赏码
 <div>

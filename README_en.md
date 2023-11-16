@@ -46,7 +46,28 @@ python translate.py src_video_path lang_code -o out_video_opath
 ## lang_code in ['en', 'es', 'fr', 'de', 'it', 'pt', 'pl', 'tr', 'ru', 'nl', 'cs', 'ar', 'zh-cn', 'ja','hu','ko']
 ## Corresponding to [English, Spanish, French, German, Italian, Portuguese, Polish, Turkish, Russian, Dutch, Czech, Arabic, Chinese (Simplified), Japanese, Hungarian, Korean]
 ```
+## 适配 MacOS Arm
+
+Macos M1pro modify the following key dependencies to run normally.
+
+```
+numpy==1.22.2
+TTS==0.20.2
+tensorflow==2.13.0
+```
+
+And there are also code modifications:
+
+`MyHeyGen/core/voice_cloner.py`, line 7
+
+```python
+self.api = TTS(config["TTS_MODEL"], gpu=True)
+```
+
+`gpu=True` -> `gpu=False`
+
 ## Update log
+- 2023.11.16 update for macos arm
 - 2023.11.7  add TTS_MODEL in config.json to custom model
 - 2023.11.8 update TTS for more reality
 - 2023.11.9 fix video-retalking oface error
